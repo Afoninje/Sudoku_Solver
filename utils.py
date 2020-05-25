@@ -1,20 +1,21 @@
-rows = 'ABCDEFGHI'
-cols = '123456789'
-
 def createGrid(a, b):
       return [s+t for s in a for t in b]
 
-def createDict(sudokuString):
-    grid = createGrid(rows, cols) 
+def createDict(grid,sudokuString):
     counter = 0
     sudokuDict = {}
     for i in sudokuString:
-        sudokuDict[grid[counter]] = i
+        if i == ".":
+            sudokuDict[grid[counter]] = "123456789"
+        else:
+            sudokuDict[grid[counter]] = i
+
         counter +=1
 
     return sudokuDict
 
 def display(grid,sudokuDict):
+    print()
     counter = 1
     for i in range(81):
         print(sudokuDict[grid[i]],end =" ")
@@ -26,11 +27,37 @@ def display(grid,sudokuDict):
         if counter%27==0:
             print("------+-------+-------")
        
-        counter +=1
+        if counter<80:
+            counter +=1
+
+def eliminate(grid,sudoku):
+    for i in range(81):
+        if len(sudoku[grid[i]]) == 1:
+            value = sudoku[grid[i]]
+            row = grid[i][0]
+            column = grid[i][1]
+            
+            for i in range(1,10):
+                currentRow = row+str(i)
+                if(len(sudoku[currentRow]))>1:
+                    print(currentRow,value)
+                    sudoku[currentRow] = sudoku[currentRow].replace(value,"")
+
+            rows = ["Dummy","A","B","C","D","E","F","G","H","I"]
+            for i in range(1,10):
+                currentColumn = rows[i]+column
+                if(len(sudoku[currentColumn]))>1:
+                    sudoku[currentColumn] = sudoku[currentColumn].replace(value,"")
+
+    return sudoku
+
 
 
 
 def main():
+    rows = 'ABCDEFGHI'
+    cols = '123456789'
+
     grid = createGrid(rows, cols) 
     # Create a grid from A1 to I9
     row_units = [createGrid(r, cols) for r in rows] 
@@ -39,13 +66,22 @@ def main():
     # Create column. Ex = ['A1', 'B1', 'C1', 'D1', 'E1', 'F1', 'G1', 'H1', 'I1']
     square_units = [createGrid(rs, cs) for rs in ('ABC','DEF','GHI') for cs in ('123','456','789')] 
     # Create the sub-grids. Ex = ['A1', 'A2', 'A3', 'B1', 'B2', 'B3', 'C1', 'C2', 'C3']
-    unitlist = row_units + column_units + square_units
-    # Combine all of them to later check the solution against each element
 
-    sudokuString = input("Enter the sudoku in a string format")
-    sudoku = createDict(sudokuString)
-  
+    #sudokuString = input("Enter the sudoku in a string format")
+    sudokuString = "..3.2.6..9..3.5..1..18.64....81.29..7.......8..67.82....26.95..8..2.3..9..5.1.3.."
+    sudoku = createDict(grid,sudokuString) 
+
+    #Creates a dictionary with location on the grid corresponding to its current value  
+    
+    #display(grid,sudoku) 
+
+    sudoku = eliminate(grid,sudoku)
+
     display(grid,sudoku) 
+
 
 if __name__ == "__main__":
     main()
+
+
+#..3.2.6..9..3.5..1..18.64....81.29..7.......8..67.82....26.95..8..2.3..9..5.1.3..
