@@ -1,3 +1,4 @@
+#Return the unique values for a grid
 def findDistinct(Str): 
 
     n = len(Str) 
@@ -25,9 +26,12 @@ def findDistinct(Str):
 
     return unique
 
+#Create grid by supplying row and column
 def createGrid(a, b):
       return [s+t for s in a for t in b]
 
+#Create dictionary which holds position on the grid as the key
+#and the number on the position as the value
 def createDict(grid,sudokuString):
     counter = 0
     sudokuDict = {}
@@ -41,6 +45,7 @@ def createDict(grid,sudokuString):
 
     return sudokuDict
 
+#Display the sudoku in a easy to read manner
 def display(grid,sudoku):
     
     counter = 1
@@ -57,6 +62,7 @@ def display(grid,sudoku):
         if counter<80:
             counter +=1
 
+#Check if the sudoku is solved in its current state
 def solved(grid,sudoku):
     flag=0
     for i in range(81):
