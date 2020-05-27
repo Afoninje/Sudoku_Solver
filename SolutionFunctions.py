@@ -94,30 +94,39 @@ def SearchSolution(grid,sudoku):
 
     possibleValues = []
     counter = 0
-    for i in range(80):
-        if len(sudoku[grid[i]])>1:
 
-            for j in range(len(sudoku[grid[i]])):
-                possibleValues.append(sudoku[grid[i]][j])
+    for a in range(2,8):
+        for i in range(80):
+            if len(sudoku[grid[i]]) == a:
+                print(sudoku[grid[i]])
+                for j in range(len(sudoku[grid[i]])):
+                    possibleValues.append(sudoku[grid[i]][j])
 
-            for k in range(len(possibleValues)):
-                copysudoku = dict(sudoku)
-                copysudoku[grid[i]] = possibleValues[k]
-    
-                for x in range(80):
-                    copysudoku = EliminateSolution(grid,copysudoku)
-                    copysudoku = OnlyOptionSolution(grid,copysudoku)
+                for k in range(len(possibleValues)):
+                    copysudoku = dict(sudoku)
+                    copysudoku[grid[i]] = possibleValues[k]
+                    toPassSudoku = dict(copysudoku)
+        
+                    while True:
+                        oldsudoku = dict(copysudoku)
+                        copysudoku = EliminateSolution(grid,copysudoku)
+                        copysudoku = OnlyOptionSolution(grid,copysudoku)
+         
+                        if oldsudoku == copysudoku:
+                            print()
+                            print(grid[i],possibleValues)
+                            print()
+                            display(grid , copysudoku)
+                            print()
+                            if solved(grid,copysudoku) == "solved":
+                                print("TEST")
+                                print(copysudoku)            
+                            else:
+                                SearchSolution(grid,copysudoku)
+                                
+                            copysudoku = SearchSolution(grid,copysudoku)
 
-                    solvedOrNot = solved(grid,copysudoku)
-                    print(solvedOrNot)
-                    
-                    if solvedOrNot == "solved":
-                        print("hello")
-                        return copysudoku
-                    print(counter)
-                    counter+=1
-
-            possibleValues = []
+                possibleValues = []
 
 
 

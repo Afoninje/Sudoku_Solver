@@ -66,10 +66,10 @@ def display(grid,sudoku):
 def solved(grid,sudoku):
     flag=0
     for i in range(81):
-        if len(sudoku[grid[i]])>1:
+        if len(sudoku[grid[i]])==1:
             flag+=1
         
-    if flag == 0:
+    if flag == 81:
         return "solved"
     else:
         return "notsolved"
