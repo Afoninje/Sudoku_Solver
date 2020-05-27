@@ -1,3 +1,17 @@
+def createBoard(string):
+    # Creates a board of size 9*9, all set to 0
+    w, h = 9, 9;
+    board = [[0 for x in range(w)] for y in range(h)] 
+    counter = 0
+
+    for i in range(9):
+        for j in range(9):
+            if string[counter] != ".":
+                 board[i][j] = int(string[counter])
+            counter+=1
+
+    return board
+
 def printBoard(sudoku):
     for i in range(len(sudoku)):
         if i % 3 == 0 and i != 0:

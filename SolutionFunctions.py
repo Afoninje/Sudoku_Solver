@@ -1,7 +1,6 @@
 from UtilityFunctions import *
 
 def backtrackSolve(sudoku):
-
     find = findEmptySpot(sudoku)
 
     if not find:
@@ -14,7 +13,7 @@ def backtrackSolve(sudoku):
             sudoku[row][col] = i
 
             if backtrackSolve(sudoku):
-                return sudoku
+                return True
 
             sudoku[row][col] = 0
 

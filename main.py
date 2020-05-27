@@ -4,31 +4,16 @@ from SolutionFunctions import *
 
 def main():
 
-    board = [
-        [7,8,0,4,0,0,1,2,0],
-        [6,0,0,0,7,5,0,0,9],
-        [0,0,0,6,0,1,0,7,8],
-        [0,0,7,0,4,0,2,6,0],
-        [0,0,1,0,5,0,9,3,0],
-        [9,0,4,0,6,0,0,0,5],
-        [0,7,0,3,0,0,0,1,2],
-        [1,2,0,0,0,7,4,0,0],
-        [0,4,9,2,0,6,0,0,7]
-    ]
-    board2 = [
-        [4,0,0,0,0,0,8,0,5],
-        [0,3,0,0,0,0,0,0,0],
-        [0,0,7,0,0,0,0,0,0],
-        [0,2,0,0,0,0,0,6,0],
-        [0,0,0,0,8,0,4,0,0],
-        [0,0,0,0,1,0,0,0,0],
-        [0,0,0,6,0,3,0,7,0],
-        [5,0,0,2,0,0,0,0,0],
-        [1,0,4,0,0,0,0,0,0]
-    ] 
+    sudokuString = input("Enter the sudoku in a string format, where empty places are denoted by .")
+    sudoku = createBoard(sudokuString) 
+    solution = backtrackSolve(sudoku)
+    if solution == True:
+        printBoard(sudoku)
+    else:
+        print("Solution not found")
 
-    solved = backtrackSolve(board2)
-    printBoard(solved)
 
 if __name__ == "__main__":
     main()
+
+#4.....8.5.3.........7.......2.....6.....8.4......1.......6.3.7.5..2.....1.4......
